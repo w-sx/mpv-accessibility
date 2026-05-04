@@ -55,7 +55,7 @@ function layer.toggle_accessible_list()
             {"ESC", layer.toggle_accessible_list}
         }, "accessible_list", "force")
         mp.enable_key_bindings("accessible_list")
-        msg.msg(string.format("Playlist (%d / %d). Use j or k to move, g to select, Esc or F8 to exit", selected_index+1, count))
+        msg.msg(string.format("Playlist (%d / %d). Use j or k to move, h to select, Esc or F8 to exit", selected_index+1, count))
         mp.command("show-text ${playlist}")
     else
         list_active = false

@@ -17,7 +17,7 @@ function ui.report_progress()
     mp.command("show-progress")
 end
 
--- Bind key o
+-- Bind key
 mp.add_key_binding("o", "report_progress", ui.report_progress)
 
 return ui
