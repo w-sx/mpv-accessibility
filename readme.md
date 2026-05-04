@@ -58,7 +58,8 @@ Make sure the included nvdaControllerClient.dll matches your mpv architecture (6
 | :--- | :--- |
 | **`o`** | Report playback progress (Time / Duration / %) |
 | **`F8`** | Toggle Accessible Playlist Mode |
-| **`j` / `k`** | (In Playlist Mode) Move selection Down / Up |
+| **`?`** | Toggle Accessible Keylist Mode |
+| **`j` / `k`** | (In List Mode) Move selection Down / Up |
 | **`h`** | (In Playlist Mode) Confirm and Play selection |
 | **`Esc`** | Exit Playlist Mode |
 

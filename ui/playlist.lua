@@ -9,21 +9,24 @@ local layer = {}
 local list_active = false
 local selected_index = 0
 
--- Update selection and announce
-local function update_selection(delta)
-    local playlist = mp.get_property_native("playlist")
-    local count = #playlist
-    if count == 0 then return msg.msg("Playlist is empty") end
-
-    -- Boundary check
-    if selected_index + delta < 0 or selected_index + delta >= count then return end
-    selected_index = selected_index + delta
-
+-- announce selection
+local function announce()
     -- Get title or filename
+    local playlist = mp.get_property_native("playlist")
     local item = playlist[selected_index + 1]
     local _, name = utils.split_path(item.filename)
     local title = item.title or name
     msg.msg(string.format("%d. %s (%s)", selected_index + 1, title, item.filename))
+end
+
+-- change selection
+local function change(delta)
+    local count = #mp.get_property_native("playlist")
+    if count == 0 then return msg.msg("Playlist is empty") end
+    -- Boundary check
+    if selected_index + delta < 0 or selected_index + delta >= count then return end
+    selected_index = selected_index + delta
+    announce()
 end
 
 -- Select playlist item
@@ -42,14 +45,12 @@ function layer.toggle_accessible_list()
         local count = mp.get_property_number("playlist-count") or 0
         if count == 0 then return msg.msg("Playlist is empty") end
         list_active = true
-
         -- Initialize index to current playing position
         selected_index = mp.get_property_number("playlist-pos") or 0
-
         -- Dynamic key bindings
         mp.set_key_bindings({
-            {"k", function() update_selection(-1) end},
-            {"j", function() update_selection(1) end},
+            {"k", function() change(-1) end},
+            {"j", function() change(1) end},
             {"h", accept_selection},
             {"f8", layer.toggle_accessible_list},
             {"ESC", layer.toggle_accessible_list}
@@ -65,6 +66,6 @@ function layer.toggle_accessible_list()
 end
 
 -- Bind F8 trigger
-mp.add_key_binding("f8", "toggle_accessible_list", layer.toggle_accessible_list)
+mp.add_key_binding("f8", "toggle_accessible_playlist", layer.toggle_accessible_list)
 
 return layer

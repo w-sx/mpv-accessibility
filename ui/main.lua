@@ -3,6 +3,8 @@
 local ui = {}
 
 ui.playlist = require("ui.playlist")
+ui.keylist = require("ui.keylist")
+
 
 local msg = require 'driver.main'
 
