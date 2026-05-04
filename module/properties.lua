@@ -1,6 +1,5 @@
--- modules.properties.lua
+-- module.properties.lua
 
--- import
 local msg = require("driver.main")
 
 -- Properties mapping for observation

@@ -7,4 +7,4 @@ local msg = require("driver.main")
 if not msg then return end
 
 local ui = require("ui.main")
-local modules = require("modules.main")
+local module = require("module.main")

@@ -1,4 +1,4 @@
--- modules.events.lua
+-- module.events.lua
 
 local msg = require 'driver.main'
 
