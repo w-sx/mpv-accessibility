@@ -20,7 +20,7 @@ local function load_driver()
         local success, drv = pcall(require, path)
         if success then
             -- Check if driver is available and running
-            if drv and drv.is_running then
+            if drv and drv.is_running() then
                 --print("Driver loaded successfully: " .. name)
                 driver = drv
                 return true
