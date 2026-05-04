@@ -26,62 +26,36 @@ mp.observe_property("sub-text", "string", function(key, value)
     if value and mp.get_property_bool("sub-visibility") then msg.msg(value,false) end
 end)
 
--- Helper: Format values for speech
-local function format_value(name, val)
-    if type(val) == "boolean" then
-        return val and "On" or "Off"
-    end
-    if type(val) == "number" then
-        -- Handle units for specific properties
-        if name == "sub-pos" then return math.floor(val) .. "%" end
-        if name == "volume" then return math.floor(val) end
-        if name == "speed" then return string.format("%.2f X", val) end
-        if name == "sub-delay" then return string.format("%.2f s", val) end
-        
-        -- Generic numbers: Integer if whole, else 2 decimal places
-        return (val % 1 == 0) and tostring(val) or string.format("%.2f", val)
-    end
-    return tostring(val)
-end
-
 -- Property mapping for observation
 local target_properties = {
-    ["fullscreen"]      = "Fullscreen",
-    ["ontop"]           = "On top",
-    ["loop-file"]       = "Loop",
-    ["shuffle"]         = "Shuffle",
-    ["video-zoom"]      = "Zoom",
-    ["chapter-metadata/title"] = "Chapter:",
-    ["sub-visibility"]  = "Subtitle",
-    ["sid"]             = "Subtitle track",
-    ["sub-pos"]         = "Subtitle position",
-    ["sub-delay"]       = "Subtitle delay",
-    ["sub-ass-override"] = "ASS style override",
-    ["panscan"]         = "Panscan",
-    ["deinterlace"]     = "Deinterlace",
-    ["speed"]           = "Speed",
---  ["volume"]          = "Volume",
-    ["mute"]            = "Mute",
-    ["deband"]          = "Deband"
+    ["fullscreen"] = "Fullscreen",
+    ["ontop"] = "On top",
+    ["loop-file"] = "Loop",
+    ["shuffle"] = "Shuffle",
+    ["video-zoom"] = "Zoom",
+    ["chapter-metadata/title"] = "Chapter",
+    ["sub-visibility"] = "Subtitles",
+    ["sid"] = "Subtitle track",
+    ["sub-pos"] = "Sub position",
+    ["sub-delay"] = "Sub delay",
+    ["sub-ass-override"] = "ASS subtitle style override",
+    ["panscan"] = "Panscan",
+    ["deinterlace"] = "Deinterlace",
+    ["speed"] = "Speed",
+  ["volume"] = "Volume",
+    ["mute"] = "Mute",
+    ["deband"] = "Deband",
+    ["ab-loop-a"] = "A-B loop start",
+    ["ab-loop-b"] = "A-B loop end"
 }
 
 -- Batch register observers
 for prop_name, display_name in pairs(target_properties) do
     mp.observe_property(prop_name, "native", function(name, val)
         if val == nil then return end
-
-        local status_text = format_value(name, val)
-        local final_msg = string.format("%s %s", display_name, status_text)
-        
-        msg.msg(final_msg)
+        msg.msg(display_name .. ": " .. mp.get_property_osd(name))
     end)
 end
-
-mp.observe_property("playlist-pos", "number", function(_, val)
-    if val == nil then return end
-    local count = mp.get_property_number("playlist-count", 0)
-    msg.msg(string.format("%d of %d", val + 1, count))
-end)
 
     msg.freeze()
     mp.set_property("title", "${media-title} - mpv(Accessibility)")
