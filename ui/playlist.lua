@@ -50,7 +50,7 @@ function layer.toggle_accessible_list()
         mp.set_key_bindings({
             {"k", function() update_selection(-1) end},
             {"j", function() update_selection(1) end},
-            {"g", accept_selection},
+            {"h", accept_selection},
             {"f8", layer.toggle_accessible_list},
             {"ESC", layer.toggle_accessible_list}
         }, "accessible_list", "force")
