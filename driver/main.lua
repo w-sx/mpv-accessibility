@@ -2,7 +2,8 @@
 
 -- Driver list
 local drivers_to_try = {
-"nvda"
+    "nvda",
+    "title" -- to fallback
 }
 
 local driver = nil
