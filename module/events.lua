@@ -10,3 +10,11 @@ end)
 mp.register_event("seek", function()
     msg.msg(mp.get_property_osd("time-pos"))
 end)
+
+mp.enable_messages("info")
+
+mp.register_event("log-message", function(log)
+    if log.text:lower():find("screenshot") then
+        msg.msg(log.text)
+    end
+end)
