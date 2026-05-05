@@ -21,6 +21,7 @@ local target_properties = {
     ["panscan"] = "Panscan",
     ["speed"] = "Speed",
   ["volume"] = "Volume",
+    ["sub-scale"] = "Sub scale",
     ["ab-loop-a"] = "A-B loop start",
     ["ab-loop-b"] = "A-B loop end",
     ["contrast"] = "Contrast",
